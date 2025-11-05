@@ -279,7 +279,6 @@ function FavoritePlaces({ places = [], onClose, currentUser }) {
     const icons = {
       restaurant: '🍽️',
       cafe: '☕',
-      bar: '🍷',
       activity: '🎯',
       park: '🌳',
       other: '📍'
@@ -314,7 +313,7 @@ function FavoritePlaces({ places = [], onClose, currentUser }) {
         </div>
 
         <div className="flex gap-2 mb-6 overflow-x-auto pb-2">
-          {['all', 'restaurant', 'cafe', 'bar', 'activity', 'park', 'other'].map((type) => (
+          {['all', 'restaurant', 'cafe', 'activity', 'park', 'other'].map((type) => (
             <button
               key={type}
               onClick={() => setFilterType(type)}
@@ -2022,7 +2021,7 @@ const nextDate = dates
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <MapPin size={24} />
-                <span className="font-semibold">Favorite Places</span>
+                <span className="font-semibold">Favourite Places</span>
               </div>
               <div className="text-right text-sm opacity-90">
                 <div>{favoritePlaces.length} places</div>
