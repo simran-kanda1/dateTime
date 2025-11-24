@@ -9,19 +9,25 @@ import './App.css'; // Add this line
 const SIMRAN = 'simran';
 const AYAAN = 'ayaan';
 
+// Default relationship principles
+const DEFAULT_PRINCIPLES = [
+  "No sleeping while in a fight",
+  "Not arguing for the sake of arguing",
+  "Always saying when something is off rather than letting it continue boiling"
+];
+
 // Default date ideas for the roulette
 const DEFAULT_DATE_IDEAS = [
-  { idea: 'Cook dinner together at home', category: 'home', icon: '🍳' },
-  { idea: 'BBT and Go for walk', category: 'outdoor', icon: '🌅' },
-  { idea: 'Movie night with snacks', category: 'indoor', icon: '🎬' },
-  { idea: 'Try a new restaurant', category: 'food', icon: '🍽️' },
-  { idea: 'Game night', category: 'indoor', icon: '🎲' },
-  { idea: 'Brunch time', category: 'casual', icon: '☕' },
-  { idea: 'Star gazing', category: 'outdoor', icon: '⭐' },
+  { idea: 'Cook dinner together at home', category: 'home', icon: '🏠' },
+  { idea: 'BBT and Go for walk', category: 'outdoor', icon: '🚶‍♀️' },
+  { idea: 'Movie night with snacks', category: 'indoor', icon: '🎥' },
+  { idea: 'Try a new restaurant', category: 'food', icon: '🍝' },
+  { idea: 'Game night', category: 'indoor', icon: '🧩' },
+  { idea: 'Brunch time', category: 'casual', icon: '🍳' },
+  { idea: 'Star gazing', category: 'outdoor', icon: '💫' },
   { idea: 'Bake something together', category: 'home', icon: '🧁' },
   { idea: 'Go shopping', category: 'outdoor', icon: '🛍️' },
-  { idea: 'Have a spa day at home', category: 'home', icon: '🧖' },
-  { idea: 'Karaoke night', category: 'activity', icon: '🎤' }
+  { idea: 'Have a spa day at home', category: 'home', icon: '🧖‍♀️' },
 ];
 
 // Loading Spinner Component
@@ -98,7 +104,7 @@ function DateRoulette({ customIdeas = [], onClose, currentUser }) {
     const ideaObj = {
       idea: newIdea,
       category: newIdeaCategory,
-      icon: '💡',
+      icon: '+',
       addedBy: currentUser,
       createdAt: new Date().toISOString()
     };
@@ -277,13 +283,13 @@ function FavoritePlaces({ places = [], onClose, currentUser }) {
 
   const getTypeIcon = (type) => {
     const icons = {
-      restaurant: '🍽️',
-      cafe: '☕',
-      activity: '🎯',
+      restaurant: '🍝',
+      cafe: '🍳',
+      activity: '🕺',
       park: '🌳',
-      other: '📍'
+      other: '💼'
     };
-    return icons[type] || '📍';
+    return icons[type] || '💼';
   };
 
   const getPriceRangeColor = (range) => {
@@ -357,7 +363,7 @@ function FavoritePlaces({ places = [], onClose, currentUser }) {
                   className="glass-input px-4 py-3 rounded-xl outline-none"
                 >
                   <option value="restaurant">Restaurant</option>
-                  <option value="cafe">Café</option>
+                  <option value="cafe">Cafe</option>
                   <option value="activity">Activity</option>
                   <option value="park">Park</option>
                   <option value="other">Other</option>
@@ -393,7 +399,7 @@ function FavoritePlaces({ places = [], onClose, currentUser }) {
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Rating: {newPlace.rating} ⭐
+                  Rating: {newPlace.rating} 💫
                 </label>
                 <input
                   type="range"
@@ -482,7 +488,7 @@ function FavoritePlaces({ places = [], onClose, currentUser }) {
                   </span>
                   {place.visited && (
                     <span className="px-2 py-1 bg-green-100 text-green-700 rounded-full text-xs font-semibold">
-                      ✓ Visited
+                      Visited
                     </span>
                   )}
                 </div>
@@ -831,45 +837,45 @@ const checkForMilestones = (dates, anniversaryDate) => {
 
   // Relationship milestones
   if (daysTogether === 100) {
-    milestones.push({ type: '100days', title: '100 Days Together!', icon: '🥳', achieved: new Date().toISOString() });
+    milestones.push({ type: '100days', title: '100 Days Together!', icon: '💯', achieved: new Date().toISOString() });
   }
   if (daysTogether === 180) {
-    milestones.push({ type: '6months', title: '6 Months Anniversary!', icon: '🥳', achieved: new Date().toISOString() });
+    milestones.push({ type: '6months', title: '6 Months Anniversary!', icon: '6️⃣', achieved: new Date().toISOString() });
   }
   if (daysTogether === 365) {
-    milestones.push({ type: '1year', title: 'One Year Together!', icon: '🥳', achieved: new Date().toISOString() });
+    milestones.push({ type: '1year', title: 'One Year Together!', icon: '🕺', achieved: new Date().toISOString() });
   }
 
   // Date milestones
   if (totalDates === 10) {
-    milestones.push({ type: '10dates', title: '10th Date!', icon: '🥳', achieved: new Date().toISOString() });
+    milestones.push({ type: '10dates', title: '10th Date!', icon: '🔟', achieved: new Date().toISOString() });
   }
   if (totalDates === 25) {
-    milestones.push({ type: '25dates', title: '25 Amazing Dates!', icon: '🥳', achieved: new Date().toISOString() });
+    milestones.push({ type: '25dates', title: '25 Amazing Dates!', icon: '🥰', achieved: new Date().toISOString() });
   }
   if (totalDates === 50) {
-    milestones.push({ type: '50dates', title: '50 Dates Together!', icon: '🥳', achieved: new Date().toISOString() });
+    milestones.push({ type: '50dates', title: '50 Dates Together!', icon: '😘', achieved: new Date().toISOString() });
   }
   if (totalDates === 100) {
-    milestones.push({ type: '100dates', title: '100 Dates!!!', icon: '🥳', achieved: new Date().toISOString() });
+    milestones.push({ type: '100dates', title: '100 Dates!!!', icon: '💯', achieved: new Date().toISOString() });
   }
 
   // Photo milestones
   if (totalPhotos === 50) {
-    milestones.push({ type: '50photos', title: '50 Photos!', icon: '🥳', achieved: new Date().toISOString() });
+    milestones.push({ type: '50photos', title: '50 Photos!', icon: '🤳', achieved: new Date().toISOString() });
   }
   if (totalPhotos === 100) {
-    milestones.push({ type: '100photos', title: '100 Beautiful Photos!', icon: '🥳', achieved: new Date().toISOString() });
+    milestones.push({ type: '100photos', title: '100 Beautiful Photos!', icon: '🎞️', achieved: new Date().toISOString() });
   }
 
   // Comment milestone
   if (totalComments === 100) {
-    milestones.push({ type: '100comments', title: '100 Sweet Comments!', icon: '🥳', achieved: new Date().toISOString() });
+    milestones.push({ type: '100comments', title: '100 Sweet Comments!', icon: '💬', achieved: new Date().toISOString() });
   }
 
   // First perfect date
   if (fiveStarDates === 1) {
-    milestones.push({ type: 'first5star', title: 'First 5-Star Date!', icon: '🥳', achieved: new Date().toISOString() });
+    milestones.push({ type: 'first5star', title: 'First 5-Star Date!', icon: '👌', achieved: new Date().toISOString() });
   }
 
   return milestones;
@@ -912,6 +918,15 @@ export default function App() {
 const [showMilestone, setShowMilestone] = useState(null);
 const [achievedMilestones, setAchievedMilestones] = useState([]);
 const { triggerHaptic } = useHaptic();
+
+// New states for editing and principles
+const [editingDateId, setEditingDateId] = useState(null);
+const [editingField, setEditingField] = useState(null); // 'title', 'category', 'place'
+const [editValue, setEditValue] = useState('');
+const [principles, setPrinciples] = useState([]);
+const [newPrinciple, setNewPrinciple] = useState('');
+const [showPrinciples, setShowPrinciples] = useState(false);
+const [notificationPermission, setNotificationPermission] = useState('default');
 
 // Load achieved milestones from Firebase
 useEffect(() => {
@@ -1045,6 +1060,116 @@ const nextDate = dates
 
     return () => unsubscribe();
   }, []);
+
+  // Load principles from Firebase
+  useEffect(() => {
+    const q = query(collection(db, 'principles'), orderBy('createdAt', 'asc'));
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      const principlesData = snapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data()
+      }));
+      
+      // If no principles exist, add default ones
+      if (principlesData.length === 0 && currentUser) {
+        DEFAULT_PRINCIPLES.forEach(async (principle) => {
+          await addDoc(collection(db, 'principles'), {
+            text: principle,
+            createdAt: new Date().toISOString(),
+            createdBy: currentUser
+          });
+        });
+      } else {
+        setPrinciples(principlesData);
+      }
+    });
+
+    return () => unsubscribe();
+  }, [currentUser]);
+
+  // Request notification permission on mount
+  useEffect(() => {
+    if ('Notification' in window) {
+      setNotificationPermission(Notification.permission);
+      
+      if (Notification.permission === 'default') {
+        // We'll ask for permission when user tries to enable notifications
+      }
+    }
+  }, []);
+
+  // Setup notification listeners for new comments, voice notes, and invites
+  useEffect(() => {
+    if (notificationPermission !== 'granted' || !currentUser) return;
+
+    // Listen for new comments
+    const commentsUnsubscribe = onSnapshot(collection(db, 'dates'), (snapshot) => {
+      snapshot.docChanges().forEach((change) => {
+        if (change.type === 'modified') {
+          const date = change.doc.data();
+          const lastComment = date.comments?.[date.comments.length - 1];
+          
+          if (lastComment && lastComment.author !== currentUser) {
+            // New comment from the other person
+            sendNotification('New Comment', `${lastComment.author === SIMRAN ? 'Simran' : 'Ayaan'} commented on "${date.title}"`);
+          }
+
+          const lastVoiceNote = date.voiceNotes?.[date.voiceNotes.length - 1];
+          if (lastVoiceNote && lastVoiceNote.author !== currentUser) {
+            // New voice note from the other person
+            sendNotification('New Voice Note', `${lastVoiceNote.author === SIMRAN ? 'Simran' : 'Ayaan'} sent a voice note for "${date.title}"`);
+          }
+        }
+      });
+    });
+
+    // Listen for new invitations
+    const invitesUnsubscribe = onSnapshot(collection(db, 'invitations'), (snapshot) => {
+      snapshot.docChanges().forEach((change) => {
+        if (change.type === 'added') {
+          const invite = change.doc.data();
+          if (invite.to === currentUser) {
+            sendNotification('Date Invitation!', `${invite.from === SIMRAN ? 'Simran' : 'Ayaan'} invited you to "${invite.title}"`);
+          }
+        }
+      });
+    });
+
+    return () => {
+      commentsUnsubscribe();
+      invitesUnsubscribe();
+    };
+  }, [notificationPermission, currentUser]);
+
+  // Setup 2-hour before date notifications
+  useEffect(() => {
+    if (notificationPermission !== 'granted' || !currentUser) return;
+
+    const checkUpcomingDates = () => {
+      const now = new Date();
+      const twoHoursLater = new Date(now.getTime() + 2 * 60 * 60 * 1000);
+
+      dates.forEach(date => {
+        const dateTime = new Date(date.date);
+        
+        // Check if date is within 2 hours
+        if (dateTime > now && dateTime <= twoHoursLater) {
+          // Check if we haven't already sent notification for this date
+          const notifiedKey = `notified-${date.id}`;
+          if (!localStorage.getItem(notifiedKey)) {
+            sendNotification('Upcoming Date!', `Your date "${date.title}" is in 2 hours!`);
+            localStorage.setItem(notifiedKey, 'true');
+          }
+        }
+      });
+    };
+
+    // Check every 5 minutes
+    const interval = setInterval(checkUpcomingDates, 5 * 60 * 1000);
+    checkUpcomingDates(); // Check immediately
+
+    return () => clearInterval(interval);
+  }, [notificationPermission, currentUser, dates]);
 
   // Calculate time together
   const getTimeTogether = () => {
@@ -1193,11 +1318,11 @@ const nextDate = dates
                 { type: 'image/jpeg' }
               );
               
-              console.log("âœ… Fallback conversion successful:");
+              console.log("Fallback conversion successful:");
               processedFiles.push(convertedFile);
               
             } catch (fallbackError) {
-              console.error('Ã¢ÂÅ’ Fallback conversion also failed:', fallbackError);
+              console.error('Fallback conversion also failed:', fallbackError);
               showSuccess(`Could not convert ${file.name}. Try changing iPhone settings or use a different photo.`);
               // Skip this file
             }
@@ -1597,6 +1722,94 @@ const nextDate = dates
     setShowWishlist(false);
   };
 
+  // Send push notification
+  const sendNotification = (title, body) => {
+    if (notificationPermission === 'granted') {
+      try {
+        new Notification(title, {
+          body,
+          icon: '/icon.jpg',
+          badge: '/icon.jpg',
+          tag: `date-app-${Date.now()}`,
+          requireInteraction: false
+        });
+      } catch (error) {
+        console.error('Error sending notification:', error);
+      }
+    }
+  };
+
+  // Request notification permission
+  const requestNotificationPermission = async () => {
+    if ('Notification' in window) {
+      const permission = await Notification.requestPermission();
+      setNotificationPermission(permission);
+      
+      if (permission === 'granted') {
+        showSuccess('Notifications enabled! You\'ll get alerts for new comments, voice notes, and upcoming dates.');
+      }
+    }
+  };
+
+  // Start editing a date field
+  const startEditing = (dateId, field, currentValue) => {
+    setEditingDateId(dateId);
+    setEditingField(field);
+    setEditValue(currentValue);
+  };
+
+  // Cancel editing
+  const cancelEditing = () => {
+    setEditingDateId(null);
+    setEditingField(null);
+    setEditValue('');
+  };
+
+  // Save edited field
+  const saveEdit = async () => {
+    if (!editingDateId || !editingField || !editValue.trim()) return;
+
+    try {
+      const dateRef = doc(db, 'dates', editingDateId);
+      await updateDoc(dateRef, {
+        [editingField]: editValue
+      });
+      
+      showSuccess(`${editingField.charAt(0).toUpperCase() + editingField.slice(1)} updated!`);
+      cancelEditing();
+    } catch (error) {
+      console.error('Error updating date:', error);
+    }
+  };
+
+  // Add new principle
+  const addPrinciple = async () => {
+    if (!newPrinciple.trim()) return;
+
+    try {
+      await addDoc(collection(db, 'principles'), {
+        text: newPrinciple,
+        createdAt: new Date().toISOString(),
+        createdBy: currentUser
+      });
+
+      setNewPrinciple('');
+      showSuccess("Principle added!");
+    } catch (error) {
+      console.error('Error adding principle:', error);
+    }
+  };
+
+  // Delete principle
+  const deletePrinciple = async (principleId) => {
+    try {
+      await deleteDoc(doc(db, 'principles', principleId));
+      showSuccess("Principle removed");
+    } catch (error) {
+      console.error('Error deleting principle:', error);
+    }
+  };
+
   // Open image gallery
   const openGallery = (photos, startIndex) => {
     setGalleryPhotos(photos);
@@ -1702,10 +1915,19 @@ const nextDate = dates
   };
 
   const stats = getStats();
-  const pendingInvites = invitations.filter(inv => 
-    (inv.to === currentUser && inv.status === 'pending') || 
-    (inv.from === currentUser && inv.status !== 'declined')
-  );
+  
+  // Filter out past invitations - only show active/future ones
+  const pendingInvites = invitations.filter(inv => {
+    const inviteDate = new Date(inv.date);
+    const now = new Date();
+    const isPast = inviteDate < now;
+    
+    // Only show if not past AND meets existing criteria
+    return !isPast && (
+      (inv.to === currentUser && inv.status === 'pending') || 
+      (inv.from === currentUser && inv.status !== 'declined')
+    );
+  });
   
   // Filter dates by category
   const filteredDates = selectedCategory === 'all' 
@@ -1878,7 +2100,7 @@ const nextDate = dates
               <span>
                 Uploaded by {galleryPhotos[currentPhotoIndex]?.uploadedBy === SIMRAN ? 'Simran' : 'Ayaan'}
               </span>
-              <span className="opacity-60">😙</span>
+              <span className="opacity-60">-</span>
               <span className="opacity-80">
                 {new Date(galleryPhotos[currentPhotoIndex]?.timestamp).toLocaleDateString('en-US', {
                   month: 'short',
@@ -1947,6 +2169,88 @@ const nextDate = dates
               eventName={nextDate.title}
             />
           )}
+
+          {/* Notification Permission Banner */}
+          {notificationPermission !== 'granted' && (
+            <div className="bg-gradient-to-r from-amber-500 to-orange-500 text-white rounded-2xl p-4 mb-4 shadow-lg animate-slide-down">
+              <div className="flex items-start gap-3">
+                <div className="text-2xl">🔔</div>
+                <div className="flex-1">
+                  <h3 className="font-bold mb-1">Enable Notifications</h3>
+                  <p className="text-sm opacity-90 mb-2">Get notified about new comments, voice notes, date invites, and upcoming dates!</p>
+                  <button
+                    onClick={requestNotificationPermission}
+                    className="bg-white text-amber-600 px-4 py-2 rounded-lg text-sm font-semibold hover:bg-opacity-90 transition-all"
+                  >
+                    Enable Now
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Relationship Principles Card */}
+          <div className="bg-white rounded-2xl p-6 shadow-lg mb-6 animate-slide-up">
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-lg font-bold text-gray-900 flex items-center gap-2">
+                <Heart size={20} className="text-red-500" fill="currentColor" />
+                Our Principles
+              </h3>
+              <button
+                onClick={() => setShowPrinciples(!showPrinciples)}
+                className="text-pink-500 hover:text-pink-600 text-sm font-medium"
+              >
+                {showPrinciples ? 'Hide' : 'Show'}
+              </button>
+            </div>
+
+            {showPrinciples && (
+              <div className="space-y-3">
+                {principles.map((principle, index) => (
+                  <div
+                    key={principle.id}
+                    className="flex items-start gap-3 p-3 bg-gradient-to-r from-pink-50 to-purple-50 rounded-xl group"
+                  >
+                    <div className="w-6 h-6 rounded-full bg-gradient-to-r from-pink-500 to-purple-500 text-white flex items-center justify-center text-xs font-bold flex-shrink-0 mt-0.5">
+                      {index + 1}
+                    </div>
+                    <p className="flex-1 text-gray-700 text-sm leading-relaxed">{principle.text}</p>
+                    <button
+                      onClick={() => deletePrinciple(principle.id)}
+                      className="opacity-0 group-hover:opacity-100 transition-opacity text-red-400 hover:text-red-600"
+                    >
+                      <X size={16} />
+                    </button>
+                  </div>
+                ))}
+
+                {/* Add new principle */}
+                <div className="flex gap-2 mt-4">
+                  <input
+                    type="text"
+                    placeholder="Add a new principle..."
+                    value={newPrinciple}
+                    onChange={(e) => setNewPrinciple(e.target.value)}
+                    onKeyPress={(e) => e.key === 'Enter' && addPrinciple()}
+                    className="flex-1 px-4 py-2 border-2 border-gray-200 rounded-xl focus:border-pink-500 focus:outline-none text-sm"
+                  />
+                  <button
+                    onClick={addPrinciple}
+                    disabled={!newPrinciple.trim()}
+                    className="bg-gradient-to-r from-pink-500 to-purple-500 text-white px-4 py-2 rounded-xl font-semibold hover:shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    <Plus size={18} />
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {!showPrinciples && principles.length > 0 && (
+              <p className="text-gray-600 text-sm">
+                {principles.length} principle{principles.length !== 1 ? 's' : ''} • Click "Show" to view
+              </p>
+            )}
+          </div>
 
           {/* Pending Invitations */}
           {pendingInvites.length > 0 && (
@@ -2097,7 +2401,7 @@ const nextDate = dates
                 </div>
 
                 {date.location && (
-                  <p className="text-sm text-gray-700 mb-2">📍 {date.location}</p>
+                  <p className="text-sm text-gray-700 mb-2">💼 {date.location}</p>
                 )}
 
                 {date.rating > 0 && (
@@ -2318,9 +2622,9 @@ const nextDate = dates
             >
               <option value="dinner">🍝 Dinner</option>
               <option value="movie">🎥 Movie</option>
-              <option value="adventure">🏕️ Adventure</option>
+              <option value="adventure">🛍️ Adventure</option>
               <option value="stay-in">🏠 Stay In</option>
-              <option value="other">😋 Other</option>
+              <option value="other">🕺 Other</option>
             </select>
 
             <textarea
@@ -2649,36 +2953,78 @@ const nextDate = dates
 
           {/* Date Info */}
           <div className="bg-white rounded-2xl p-6 shadow-lg mb-6">
-            {/* Edit Button */}
-            {!isEditingDate && (
-              <div className="flex justify-end mb-3">
-                <button
-                  onClick={startEditingDate}
-                  className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-600 hover:text-pink-600 hover:bg-pink-50 rounded-lg transition-all"
-                >
-                  <Edit2 size={16} />
-                  Edit Details
-                </button>
+            <div className="space-y-4">
+              {/* Title - Inline Editable */}
+              <div>
+                {editingDateId === selectedDate?.id && editingField === 'title' ? (
+                  <div className="space-y-2">
+                    <input type="text" value={editValue} onChange={(e) => setEditValue(e.target.value)} className="w-full px-4 py-3 border-2 border-pink-500 rounded-xl focus:outline-none text-xl font-bold" autoFocus />
+                    <div className="flex gap-2">
+                      <button onClick={cancelEditing} className="flex-1 px-3 py-2 bg-gray-200 text-gray-700 rounded-lg text-sm font-medium">Cancel</button>
+                      <button onClick={saveEdit} className="flex-1 px-3 py-2 bg-gradient-to-r from-pink-500 to-purple-500 text-white rounded-lg text-sm font-medium">Save</button>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="flex items-center justify-between group">
+                    <h3 className="text-xl font-bold text-gray-900">{selectedDate?.title}</h3>
+                    <button onClick={() => startEditing(selectedDate?.id, 'title', selectedDate?.title)} className="opacity-0 group-hover:opacity-100 p-2 hover:bg-pink-50 rounded-lg transition-all"><Edit2 size={16} className="text-pink-500" /></button>
+                  </div>
+                )}
               </div>
-            )}
 
-            <div className="space-y-3 mb-4">
+              {/* Category - Inline Editable */}
+              <div>
+                {editingDateId === selectedDate?.id && editingField === 'category' ? (
+                  <div className="space-y-2">
+                    <select value={editValue} onChange={(e) => setEditValue(e.target.value)} className="w-full px-4 py-3 border-2 border-pink-500 rounded-xl focus:outline-none" autoFocus>
+                      <option value="dinner">🍽️ Dinner</option>
+                      <option value="movie">🎥 Movie</option>
+                      <option value="adventure">🏕️ Adventure</option>
+                      <option value="stay-in">🏠 Stay In</option>
+                      <option value="other">😋 Other</option>
+                    </select>
+                    <div className="flex gap-2">
+                      <button onClick={cancelEditing} className="flex-1 px-3 py-2 bg-gray-200 text-gray-700 rounded-lg text-sm font-medium">Cancel</button>
+                      <button onClick={saveEdit} className="flex-1 px-3 py-2 bg-gradient-to-r from-pink-500 to-purple-500 text-white rounded-lg text-sm font-medium">Save</button>
+                    </div>
+                  </div>
+                ) : selectedDate?.category ? (
+                  <div className="flex items-center gap-2 group">
+                    <span className="inline-block px-3 py-1 bg-purple-100 text-purple-600 rounded-full text-sm font-medium">{selectedDate.category}</span>
+                    <button onClick={() => startEditing(selectedDate?.id, 'category', selectedDate?.category)} className="opacity-0 group-hover:opacity-100 p-1 hover:bg-pink-50 rounded transition-all"><Edit2 size={14} className="text-pink-500" /></button>
+                  </div>
+                ) : (
+                  <button onClick={() => startEditing(selectedDate?.id, 'category', 'dinner')} className="text-gray-400 hover:text-pink-500 text-sm flex items-center gap-1"><Plus size={14} />Add category</button>
+                )}
+              </div>
+
+              {/* Date */}
               <div className="flex items-center gap-2 text-gray-700">
                 <Calendar size={18} />
-                <span>{new Date(selectedDate?.date).toLocaleDateString('en-US', { 
-                  weekday: 'long',
-                  year: 'numeric', 
-                  month: 'long', 
-                  day: 'numeric' 
-                })}</span>
+                <span>{new Date(selectedDate?.date).toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</span>
               </div>
 
-              {selectedDate?.location && (
-                <div className="flex items-center gap-2 text-gray-700">
-                  <span>📍</span>
-                  <span>{selectedDate.location}</span>
-                </div>
-              )}
+              {/* Location - Inline Editable */}
+              <div>
+                {editingDateId === selectedDate?.id && editingField === 'location' ? (
+                  <div className="space-y-2">
+                    <input type="text" value={editValue} onChange={(e) => setEditValue(e.target.value)} placeholder="Add location..." className="w-full px-4 py-3 border-2 border-pink-500 rounded-xl focus:outline-none" autoFocus />
+                    <div className="flex gap-2">
+                      <button onClick={cancelEditing} className="flex-1 px-3 py-2 bg-gray-200 text-gray-700 rounded-lg text-sm font-medium">Cancel</button>
+                      <button onClick={saveEdit} className="flex-1 px-3 py-2 bg-gradient-to-r from-pink-500 to-purple-500 text-white rounded-lg text-sm font-medium">Save</button>
+                    </div>
+                  </div>
+                ) : selectedDate?.location ? (
+                  <div className="flex items-center gap-2 group">
+                    <MapPin size={18} className="text-gray-600" />
+                    <span className="text-gray-700">{selectedDate.location}</span>
+                    <button onClick={() => startEditing(selectedDate?.id, 'location', selectedDate?.location)} className="opacity-0 group-hover:opacity-100 p-1 hover:bg-pink-50 rounded transition-all"><Edit2 size={14} className="text-pink-500" /></button>
+                  </div>
+                ) : (
+                  <button onClick={() => startEditing(selectedDate?.id, 'location', '')} className="flex items-center gap-2 text-gray-400 hover:text-pink-500 text-sm transition-all"><MapPin size={16} /><span>Add location</span></button>
+                )}
+              </div>
+            </div>
 
               {/* Rating Section - Editable */}
               <div>
@@ -2770,7 +3116,6 @@ const nextDate = dates
             <div className="text-xs text-gray-500">
               Created by {selectedDate?.createdBy === SIMRAN ? 'Simran' : 'Ayaan'} {new Date(selectedDate?.createdAt).toLocaleDateString()}
             </div>
-          </div>
 
           {/* Photos Section */}
           <div className="bg-white rounded-2xl p-6 shadow-lg mb-6">
