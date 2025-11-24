@@ -1766,6 +1766,21 @@ const nextDate = dates
     setCurrentUser(user);
     triggerConfetti();
     showSuccess(`Welcome back, ${user === SIMRAN ? "Simran" : "Ayaan"}!`);
+    
+    // ADD THIS: Re-register FCM token if notifications are already granted
+    if (Notification.permission === 'granted') {
+      console.log('Re-registering FCM token for:', user);
+      requestFCMToken(user).then(token => {
+        if (token) {
+          console.log('✅ FCM token updated for', user);
+          setupForegroundMessageHandler((payload) => {
+            console.log('📬 Received notification:', payload);
+          });
+        }
+      }).catch(err => {
+        console.error('Error re-registering FCM token:', err);
+      });
+    }
   };
 
   // Handle logout
@@ -1815,17 +1830,26 @@ const nextDate = dates
       setNotificationPermission(permission);
       
       if (permission === 'granted') {
-        // Request FCM token
-        const token = await requestFCMToken(currentUser);
-        if (token) {
-          showSuccess('Push notifications enabled! You\'ll get alerts even when the app is closed.');
+        // Register FCM token for push notifications
+        try {
+          console.log('Registering FCM token for:', currentUser);
+          const token = await requestFCMToken(currentUser);
           
-          // Setup handler for messages when app is open
-          setupForegroundMessageHandler((payload) => {
-            console.log('Received foreground message:', payload);
-          });
-        } else {
-          showSuccess('Notifications enabled, but push may not work when app is closed.');
+          if (token) {
+            console.log('✅ FCM token registered successfully');
+            showSuccess('Push notifications enabled! You\'ll get alerts even when the app is closed.');
+            
+            // Setup handler for foreground messages (when app is open)
+            setupForegroundMessageHandler((payload) => {
+              console.log('📬 Received notification while app is open:', payload);
+            });
+          } else {
+            console.log('⚠️ FCM token registration failed');
+            showSuccess('Notifications enabled, but push notifications may not work when app is closed.');
+          }
+        } catch (error) {
+          console.error('❌ Error setting up FCM:', error);
+          showSuccess('Notifications enabled with limited functionality.');
         }
       }
     }
