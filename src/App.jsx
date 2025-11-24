@@ -18,16 +18,17 @@ const DEFAULT_PRINCIPLES = [
 
 // Default date ideas for the roulette
 const DEFAULT_DATE_IDEAS = [
-  { idea: 'Cook dinner together at home', category: 'home', icon: '🏠' },
-  { idea: 'BBT and Go for walk', category: 'outdoor', icon: '🚶‍♀️' },
-  { idea: 'Movie night with snacks', category: 'indoor', icon: '🎥' },
-  { idea: 'Try a new restaurant', category: 'food', icon: '🍝' },
-  { idea: 'Game night', category: 'indoor', icon: '🧩' },
-  { idea: 'Brunch time', category: 'casual', icon: '🍳' },
-  { idea: 'Star gazing', category: 'outdoor', icon: '💫' },
-  { idea: 'Bake something together', category: 'home', icon: '🧁' },
-  { idea: 'Go shopping', category: 'outdoor', icon: '🛍️' },
-  { idea: 'Have a spa day at home', category: 'home', icon: '🧖‍♀️' },
+  { idea: 'Cook dinner together at home', category: 'home', icon: 'ðŸ³' },
+  { idea: 'BBT and Go for walk', category: 'outdoor', icon: 'ðŸŒ…' },
+  { idea: 'Movie night with snacks', category: 'indoor', icon: 'ðŸŽ¬' },
+  { idea: 'Try a new restaurant', category: 'food', icon: 'ðŸ½ï¸' },
+  { idea: 'Game night', category: 'indoor', icon: 'ðŸŽ²' },
+  { idea: 'Brunch time', category: 'casual', icon: 'â˜•' },
+  { idea: 'Star gazing', category: 'outdoor', icon: 'â­' },
+  { idea: 'Bake something together', category: 'home', icon: 'ðŸ§' },
+  { idea: 'Go shopping', category: 'outdoor', icon: 'ðŸ›ï¸' },
+  { idea: 'Have a spa day at home', category: 'home', icon: 'ðŸ§–' },
+  { idea: 'Karaoke night', category: 'activity', icon: 'ðŸŽ¤' }
 ];
 
 // Loading Spinner Component
@@ -104,7 +105,7 @@ function DateRoulette({ customIdeas = [], onClose, currentUser }) {
     const ideaObj = {
       idea: newIdea,
       category: newIdeaCategory,
-      icon: '+',
+      icon: 'ðŸ’¡',
       addedBy: currentUser,
       createdAt: new Date().toISOString()
     };
@@ -283,13 +284,13 @@ function FavoritePlaces({ places = [], onClose, currentUser }) {
 
   const getTypeIcon = (type) => {
     const icons = {
-      restaurant: '🍝',
-      cafe: '🍳',
-      activity: '🕺',
-      park: '🌳',
-      other: '💼'
+      restaurant: 'ðŸ½ï¸',
+      cafe: 'â˜•',
+      activity: 'ðŸŽ¯',
+      park: 'ðŸŒ³',
+      other: 'ðŸ“'
     };
-    return icons[type] || '💼';
+    return icons[type] || 'ðŸ“';
   };
 
   const getPriceRangeColor = (range) => {
@@ -363,7 +364,7 @@ function FavoritePlaces({ places = [], onClose, currentUser }) {
                   className="glass-input px-4 py-3 rounded-xl outline-none"
                 >
                   <option value="restaurant">Restaurant</option>
-                  <option value="cafe">Cafe</option>
+                  <option value="cafe">CafÃ©</option>
                   <option value="activity">Activity</option>
                   <option value="park">Park</option>
                   <option value="other">Other</option>
@@ -399,7 +400,7 @@ function FavoritePlaces({ places = [], onClose, currentUser }) {
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Rating: {newPlace.rating} 💫
+                  Rating: {newPlace.rating} â­
                 </label>
                 <input
                   type="range"
@@ -488,7 +489,7 @@ function FavoritePlaces({ places = [], onClose, currentUser }) {
                   </span>
                   {place.visited && (
                     <span className="px-2 py-1 bg-green-100 text-green-700 rounded-full text-xs font-semibold">
-                      Visited
+                      âœ“ Visited
                     </span>
                   )}
                 </div>
@@ -574,14 +575,14 @@ function InvitationCard({ invite, currentUser, onAccept, onDelete }) {
 
         {invite.location && (
           <div className="flex items-center gap-2 text-gray-700">
-            <span className="text-amber-600">📍</span>
+            <span className="text-amber-600">ðŸ“</span>
             <span>{invite.location}</span>
           </div>
         )}
 
         {invite.dressCode && (
           <div className="flex items-center gap-2 text-gray-700">
-            <span className="text-amber-600">👔</span>
+            <span className="text-amber-600">ðŸ‘”</span>
             <span>Dress Code: {invite.dressCode}</span>
           </div>
         )}
@@ -837,45 +838,45 @@ const checkForMilestones = (dates, anniversaryDate) => {
 
   // Relationship milestones
   if (daysTogether === 100) {
-    milestones.push({ type: '100days', title: '100 Days Together!', icon: '💯', achieved: new Date().toISOString() });
+    milestones.push({ type: '100days', title: '100 Days Together!', icon: 'ðŸ¥³', achieved: new Date().toISOString() });
   }
   if (daysTogether === 180) {
-    milestones.push({ type: '6months', title: '6 Months Anniversary!', icon: '6️⃣', achieved: new Date().toISOString() });
+    milestones.push({ type: '6months', title: '6 Months Anniversary!', icon: 'ðŸ¥³', achieved: new Date().toISOString() });
   }
   if (daysTogether === 365) {
-    milestones.push({ type: '1year', title: 'One Year Together!', icon: '🕺', achieved: new Date().toISOString() });
+    milestones.push({ type: '1year', title: 'One Year Together!', icon: 'ðŸ¥³', achieved: new Date().toISOString() });
   }
 
   // Date milestones
   if (totalDates === 10) {
-    milestones.push({ type: '10dates', title: '10th Date!', icon: '🔟', achieved: new Date().toISOString() });
+    milestones.push({ type: '10dates', title: '10th Date!', icon: 'ðŸ¥³', achieved: new Date().toISOString() });
   }
   if (totalDates === 25) {
-    milestones.push({ type: '25dates', title: '25 Amazing Dates!', icon: '🥰', achieved: new Date().toISOString() });
+    milestones.push({ type: '25dates', title: '25 Amazing Dates!', icon: 'ðŸ¥³', achieved: new Date().toISOString() });
   }
   if (totalDates === 50) {
-    milestones.push({ type: '50dates', title: '50 Dates Together!', icon: '😘', achieved: new Date().toISOString() });
+    milestones.push({ type: '50dates', title: '50 Dates Together!', icon: 'ðŸ¥³', achieved: new Date().toISOString() });
   }
   if (totalDates === 100) {
-    milestones.push({ type: '100dates', title: '100 Dates!!!', icon: '💯', achieved: new Date().toISOString() });
+    milestones.push({ type: '100dates', title: '100 Dates!!!', icon: 'ðŸ¥³', achieved: new Date().toISOString() });
   }
 
   // Photo milestones
   if (totalPhotos === 50) {
-    milestones.push({ type: '50photos', title: '50 Photos!', icon: '🤳', achieved: new Date().toISOString() });
+    milestones.push({ type: '50photos', title: '50 Photos!', icon: 'ðŸ¥³', achieved: new Date().toISOString() });
   }
   if (totalPhotos === 100) {
-    milestones.push({ type: '100photos', title: '100 Beautiful Photos!', icon: '🎞️', achieved: new Date().toISOString() });
+    milestones.push({ type: '100photos', title: '100 Beautiful Photos!', icon: 'ðŸ¥³', achieved: new Date().toISOString() });
   }
 
   // Comment milestone
   if (totalComments === 100) {
-    milestones.push({ type: '100comments', title: '100 Sweet Comments!', icon: '💬', achieved: new Date().toISOString() });
+    milestones.push({ type: '100comments', title: '100 Sweet Comments!', icon: 'ðŸ¥³', achieved: new Date().toISOString() });
   }
 
   // First perfect date
   if (fiveStarDates === 1) {
-    milestones.push({ type: 'first5star', title: 'First 5-Star Date!', icon: '👌', achieved: new Date().toISOString() });
+    milestones.push({ type: 'first5star', title: 'First 5-Star Date!', icon: 'ðŸ¥³', achieved: new Date().toISOString() });
   }
 
   return milestones;
@@ -927,6 +928,21 @@ const [principles, setPrinciples] = useState([]);
 const [newPrinciple, setNewPrinciple] = useState('');
 const [showPrinciples, setShowPrinciples] = useState(false);
 const [notificationPermission, setNotificationPermission] = useState('default');
+const [serviceWorkerRegistration, setServiceWorkerRegistration] = useState(null);
+
+// Register service worker for background notifications
+useEffect(() => {
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/service-worker.js')
+      .then((registration) => {
+        console.log('Service Worker registered successfully:', registration);
+        setServiceWorkerRegistration(registration);
+      })
+      .catch((error) => {
+        console.log('Service Worker registration failed:', error);
+      });
+  }
+}, []);
 
 // Load achieved milestones from Firebase
 useEffect(() => {
@@ -1102,37 +1118,76 @@ const nextDate = dates
   useEffect(() => {
     if (notificationPermission !== 'granted' || !currentUser) return;
 
-    // Listen for new comments
+    // Track if this is the initial load to prevent notifying about existing content
+    let isInitialLoad = true;
+    
+    // Track the last notification timestamps to prevent duplicates
+    const getNotifiedKey = (type, id, timestamp) => {
+      return `notified-${type}-${id}-${timestamp}`;
+    };
+
+    const hasBeenNotified = (key) => {
+      return localStorage.getItem(key) === 'true';
+    };
+
+    const markAsNotified = (key) => {
+      localStorage.setItem(key, 'true');
+    };
+
+    // Listen for new comments and voice notes
     const commentsUnsubscribe = onSnapshot(collection(db, 'dates'), (snapshot) => {
       snapshot.docChanges().forEach((change) => {
-        if (change.type === 'modified') {
+        if (change.type === 'modified' && !isInitialLoad) {
           const date = change.doc.data();
-          const lastComment = date.comments?.[date.comments.length - 1];
+          const dateId = change.doc.id;
           
+          // Check for new comment
+          const lastComment = date.comments?.[date.comments.length - 1];
           if (lastComment && lastComment.author !== currentUser) {
-            // New comment from the other person
-            sendNotification('New Comment', `${lastComment.author === SIMRAN ? 'Simran' : 'Ayaan'} commented on "${date.title}"`);
+            const notifKey = getNotifiedKey('comment', dateId, lastComment.timestamp);
+            
+            if (!hasBeenNotified(notifKey)) {
+              sendNotification('New Comment 💬', `${lastComment.author === SIMRAN ? 'Simran' : 'Ayaan'} commented on "${date.title}"`);
+              markAsNotified(notifKey);
+            }
           }
 
+          // Check for new voice note
           const lastVoiceNote = date.voiceNotes?.[date.voiceNotes.length - 1];
-          if (lastVoiceNote && lastVoiceNote.author !== currentUser) {
-            // New voice note from the other person
-            sendNotification('New Voice Note', `${lastVoiceNote.author === SIMRAN ? 'Simran' : 'Ayaan'} sent a voice note for "${date.title}"`);
+          if (lastVoiceNote && lastVoiceNote.uploadedBy !== currentUser) {
+            const notifKey = getNotifiedKey('voicenote', dateId, lastVoiceNote.timestamp);
+            
+            if (!hasBeenNotified(notifKey)) {
+              sendNotification('New Voice Note 🎤', `${lastVoiceNote.uploadedBy === SIMRAN ? 'Simran' : 'Ayaan'} sent a voice note for "${date.title}"`);
+              markAsNotified(notifKey);
+            }
           }
         }
       });
+      
+      // After first snapshot, we're no longer in initial load
+      isInitialLoad = false;
     });
 
     // Listen for new invitations
+    let invitesInitialLoad = true;
     const invitesUnsubscribe = onSnapshot(collection(db, 'invitations'), (snapshot) => {
       snapshot.docChanges().forEach((change) => {
-        if (change.type === 'added') {
+        if (change.type === 'added' && !invitesInitialLoad) {
           const invite = change.doc.data();
           if (invite.to === currentUser) {
-            sendNotification('Date Invitation!', `${invite.from === SIMRAN ? 'Simran' : 'Ayaan'} invited you to "${invite.title}"`);
+            const notifKey = getNotifiedKey('invitation', change.doc.id, invite.createdAt);
+            
+            if (!hasBeenNotified(notifKey)) {
+              sendNotification('Date Invitation! 💕', `${invite.from === SIMRAN ? 'Simran' : 'Ayaan'} invited you to "${invite.title}"`);
+              markAsNotified(notifKey);
+            }
           }
         }
       });
+      
+      // After first snapshot, we're no longer in initial load
+      invitesInitialLoad = false;
     });
 
     return () => {
@@ -1157,7 +1212,7 @@ const nextDate = dates
           // Check if we haven't already sent notification for this date
           const notifiedKey = `notified-${date.id}`;
           if (!localStorage.getItem(notifiedKey)) {
-            sendNotification('Upcoming Date!', `Your date "${date.title}" is in 2 hours!`);
+            sendNotification('Upcoming Date! 💖', `Your date "${date.title}" is in 2 hours!`);
             localStorage.setItem(notifiedKey, 'true');
           }
         }
@@ -1318,11 +1373,11 @@ const nextDate = dates
                 { type: 'image/jpeg' }
               );
               
-              console.log("Fallback conversion successful:");
+              console.log("Ã¢Å“â€¦ Fallback conversion successful:");
               processedFiles.push(convertedFile);
               
             } catch (fallbackError) {
-              console.error('Fallback conversion also failed:', fallbackError);
+              console.error('ÃƒÂ¢Ã‚ÂÃ…â€™ Fallback conversion also failed:', fallbackError);
               showSuccess(`Could not convert ${file.name}. Try changing iPhone settings or use a different photo.`);
               // Skip this file
             }
@@ -1724,18 +1779,31 @@ const nextDate = dates
 
   // Send push notification
   const sendNotification = (title, body) => {
-    if (notificationPermission === 'granted') {
-      try {
+    if (notificationPermission !== 'granted') return;
+    
+    try {
+      // If service worker is available, use it for better background support
+      if (serviceWorkerRegistration && serviceWorkerRegistration.active) {
+        serviceWorkerRegistration.active.postMessage({
+          type: 'SHOW_NOTIFICATION',
+          title: title,
+          body: body,
+          icon: '/icon.jpg',
+          tag: `date-app-${Date.now()}`
+        });
+      } else {
+        // Fallback to regular notification
         new Notification(title, {
           body,
           icon: '/icon.jpg',
           badge: '/icon.jpg',
           tag: `date-app-${Date.now()}`,
-          requireInteraction: false
+          requireInteraction: false,
+          vibrate: [200, 100, 200]
         });
-      } catch (error) {
-        console.error('Error sending notification:', error);
       }
+    } catch (error) {
+      console.error('Error sending notification:', error);
     }
   };
 
@@ -2100,7 +2168,7 @@ const nextDate = dates
               <span>
                 Uploaded by {galleryPhotos[currentPhotoIndex]?.uploadedBy === SIMRAN ? 'Simran' : 'Ayaan'}
               </span>
-              <span className="opacity-60">-</span>
+              <span className="opacity-60">ðŸ˜™</span>
               <span className="opacity-80">
                 {new Date(galleryPhotos[currentPhotoIndex]?.timestamp).toLocaleDateString('en-US', {
                   month: 'short',
@@ -2401,7 +2469,7 @@ const nextDate = dates
                 </div>
 
                 {date.location && (
-                  <p className="text-sm text-gray-700 mb-2">📍 {date.location}</p>
+                  <p className="text-sm text-gray-700 mb-2">ðŸ“ {date.location}</p>
                 )}
 
                 {date.rating > 0 && (
@@ -2620,11 +2688,11 @@ const nextDate = dates
               onChange={(e) => setNewDate({ ...newDate, category: e.target.value })}
               className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-pink-500 focus:outline-none transition-all"
             >
-              <option value="dinner">🍝 Dinner</option>
-              <option value="movie">🎥 Movie</option>
-              <option value="adventure">🛍️ Adventure</option>
-              <option value="stay-in">🏠 Stay In</option>
-              <option value="other">🕺 Other</option>
+              <option value="dinner">ðŸ Dinner</option>
+              <option value="movie">ðŸŽ¥ Movie</option>
+              <option value="adventure">ðŸ•ï¸ Adventure</option>
+              <option value="stay-in">ðŸ  Stay In</option>
+              <option value="other">ðŸ˜‹ Other</option>
             </select>
 
             <textarea
