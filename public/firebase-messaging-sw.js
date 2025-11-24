@@ -8,12 +8,12 @@ importScripts('https://www.gstatic.com/firebasejs/10.7.0/firebase-messaging-comp
 // Initialize Firebase in service worker
 // Replace this section:
 firebase.initializeApp({
-    apiKey: "AIzaSyBCO7u-fFnSb8OtTnDJoKkjhKUz9pUuiHs",  // Your actual API key
+    apiKey: "AIzaSyBMxejPC3zYTvOLIksrZ1LOf4mFj899KEo", 
     authDomain: "dates-647d5.firebaseapp.com",
     projectId: "dates-647d5",
     storageBucket: "dates-647d5.appspot.com",
-    messagingSenderId: "771084424044",  // Your actual sender ID
-    appId: "1:771084424044:web:xyz..."  // Your actual app ID
+    messagingSenderId: "824250415351", 
+    appId: "1:824250415351:web:bbfe09da6891d891b37bf2"
   });
 
 const messaging = firebase.messaging();
