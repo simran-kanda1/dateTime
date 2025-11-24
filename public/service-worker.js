@@ -1,12 +1,16 @@
-// Service Worker for Date Time App - Background Notifications
-// This enables notifications even when the app is closed
+// Service Worker for Date Time App - Fixed Version
+// Only caches files that actually exist
 
-const CACHE_NAME = 'date-time-v1';
+const CACHE_NAME = 'date-time-v2';
+
+// Only cache files that definitely exist
+// Remove any files that give 404 errors
 const urlsToCache = [
   '/',
   '/index.html',
-  '/manifest.json',
   '/icon.jpg'
+  // Don't cache manifest.json or icon.jpg if they give 404
+  // Add them back if you have them
 ];
 
 // Install Service Worker and cache assets
@@ -16,9 +20,18 @@ self.addEventListener('install', (event) => {
     caches.open(CACHE_NAME)
       .then((cache) => {
         console.log('[Service Worker] Caching app shell');
-        return cache.addAll(urlsToCache);
+        // Use Promise.allSettled to cache what we can, ignore 404s
+        return Promise.allSettled(
+          urlsToCache.map(url => 
+            cache.add(url).catch(err => console.log('[SW] Failed to cache:', url))
+          )
+        );
       })
-      .then(() => self.skipWaiting())
+      .then(() => {
+        console.log('[Service Worker] Install complete');
+        return self.skipWaiting();
+      })
+      .catch(err => console.error('[Service Worker] Install failed:', err))
   );
 });
 
@@ -35,20 +48,23 @@ self.addEventListener('activate', (event) => {
           }
         })
       );
-    }).then(() => self.clients.claim())
+    }).then(() => {
+      console.log('[Service Worker] Activated');
+      return self.clients.claim();
+    })
   );
 });
 
 // Fetch strategy: Network first, fallback to cache
 self.addEventListener('fetch', (event) => {
-  // Skip non-GET requests
   if (event.request.method !== 'GET') return;
   
   // Skip Firebase and external URLs
   if (
     event.request.url.includes('firebaseio.com') ||
     event.request.url.includes('googleapis.com') ||
-    event.request.url.includes('gstatic.com')
+    event.request.url.includes('gstatic.com') ||
+    event.request.url.includes('firebasestorage')
   ) {
     return;
   }
@@ -56,14 +72,13 @@ self.addEventListener('fetch', (event) => {
   event.respondWith(
     fetch(event.request)
       .then((response) => {
-        // Clone the response
-        const responseToCache = response.clone();
-        
-        // Update cache with new response
-        caches.open(CACHE_NAME).then((cache) => {
-          cache.put(event.request, responseToCache);
-        });
-        
+        // Only cache successful responses
+        if (response.ok) {
+          const responseToCache = response.clone();
+          caches.open(CACHE_NAME).then((cache) => {
+            cache.put(event.request, responseToCache);
+          });
+        }
         return response;
       })
       .catch(() => {
@@ -73,68 +88,7 @@ self.addEventListener('fetch', (event) => {
   );
 });
 
-// Listen for push notifications
-self.addEventListener('push', (event) => {
-  console.log('[Service Worker] Push received:', event);
-  
-  let data = {
-    title: 'Date Time',
-    body: 'You have a new notification',
-    icon: '/icon.jpg',
-    badge: '/icon.jpg',
-    tag: 'date-time-notification'
-  };
-  
-  if (event.data) {
-    try {
-      data = event.data.json();
-    } catch (e) {
-      data.body = event.data.text();
-    }
-  }
-  
-  const options = {
-    body: data.body,
-    icon: data.icon || '/icon.jpg',
-    badge: data.badge || '/icon.jpg',
-    tag: data.tag || 'date-time-notification',
-    requireInteraction: false,
-    vibrate: [200, 100, 200],
-    data: {
-      dateOfArrival: Date.now(),
-      primaryKey: 1
-    }
-  };
-  
-  event.waitUntil(
-    self.registration.showNotification(data.title, options)
-  );
-});
-
-// Handle notification click
-self.addEventListener('notificationclick', (event) => {
-  console.log('[Service Worker] Notification clicked:', event.notification.tag);
-  event.notification.close();
-  
-  // Open the app
-  event.waitUntil(
-    clients.matchAll({ type: 'window', includeUncontrolled: true }).then((clientList) => {
-      // If app is already open, focus it
-      for (let i = 0; i < clientList.length; i++) {
-        const client = clientList[i];
-        if (client.url.includes(self.location.origin) && 'focus' in client) {
-          return client.focus();
-        }
-      }
-      // Otherwise open new window
-      if (clients.openWindow) {
-        return clients.openWindow('/');
-      }
-    })
-  );
-});
-
-// Listen for messages from the app (for triggering notifications)
+// Listen for messages from the app
 self.addEventListener('message', (event) => {
   console.log('[Service Worker] Message received:', event.data);
   
@@ -145,11 +99,31 @@ self.addEventListener('message', (event) => {
       body: body,
       icon: icon || '/icon.jpg',
       badge: '/icon.jpg',
-      tag: tag || 'date-time-notification',
+      tag: tag || Date.now().toString(),
       requireInteraction: false,
       vibrate: [200, 100, 200]
     };
     
     self.registration.showNotification(title, options);
   }
+});
+
+// Handle notification click
+self.addEventListener('notificationclick', (event) => {
+  console.log('[Service Worker] Notification clicked');
+  event.notification.close();
+  
+  event.waitUntil(
+    clients.matchAll({ type: 'window', includeUncontrolled: true }).then((clientList) => {
+      for (let i = 0; i < clientList.length; i++) {
+        const client = clientList[i];
+        if (client.url.includes(self.location.origin) && 'focus' in client) {
+          return client.focus();
+        }
+      }
+      if (clients.openWindow) {
+        return clients.openWindow('/');
+      }
+    })
+  );
 });
