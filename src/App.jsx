@@ -2401,7 +2401,7 @@ const nextDate = dates
                 </div>
 
                 {date.location && (
-                  <p className="text-sm text-gray-700 mb-2">💼 {date.location}</p>
+                  <p className="text-sm text-gray-700 mb-2">📍 {date.location}</p>
                 )}
 
                 {date.rating > 0 && (
