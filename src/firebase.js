@@ -24,7 +24,7 @@ export const messaging = getMessaging(app);
 
 // FCM VAPID Key - You'll need to generate this in Firebase Console
 // Go to: Project Settings > Cloud Messaging > Web Push certificates
-export const VAPID_KEY = "BNpMXisDdRvltwR4haJEXGnJ_EwZicaOX9jgp6MounURk1wkG495kteL-rxsStCR2QpC7X4MiRQGcRf78VE6rWY";
+export const VAPID_KEY = "S7aWfnK0Yd1MU04TJUoD3eADAAWxtQmk5den9vmI_jY";
 
 // Request FCM token and save to Firestore
 export const requestFCMToken = async (currentUser) => {
