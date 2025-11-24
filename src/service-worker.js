@@ -1,7 +1,23 @@
-// Service Worker for Date Time App - Background Notifications
-// This enables notifications even when the app is closed
+// Service Worker for Date Time App - With FCM Support
+// This enables notifications even when the app/browser is completely closed
 
-const CACHE_NAME = 'date-time-v1';
+importScripts('https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js');
+importScripts('https://www.gstatic.com/firebasejs/9.0.0/firebase-messaging-compat.js');
+
+// Initialize Firebase in service worker
+firebase.initializeApp({
+    apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+    authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+    projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+    storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+    messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+    appId: import.meta.env.VITE_FIREBASE_APP_ID,
+    measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID
+});
+
+const messaging = firebase.messaging();
+
+const CACHE_NAME = 'date-time-v2';
 const urlsToCache = [
   '/',
   '/index.html',
@@ -41,10 +57,8 @@ self.addEventListener('activate', (event) => {
 
 // Fetch strategy: Network first, fallback to cache
 self.addEventListener('fetch', (event) => {
-  // Skip non-GET requests
   if (event.request.method !== 'GET') return;
   
-  // Skip Firebase and external URLs
   if (
     event.request.url.includes('firebaseio.com') ||
     event.request.url.includes('googleapis.com') ||
@@ -56,59 +70,34 @@ self.addEventListener('fetch', (event) => {
   event.respondWith(
     fetch(event.request)
       .then((response) => {
-        // Clone the response
         const responseToCache = response.clone();
-        
-        // Update cache with new response
         caches.open(CACHE_NAME).then((cache) => {
           cache.put(event.request, responseToCache);
         });
-        
         return response;
       })
       .catch(() => {
-        // Network failed, try cache
         return caches.match(event.request);
       })
   );
 });
 
-// Listen for push notifications
-self.addEventListener('push', (event) => {
-  console.log('[Service Worker] Push received:', event);
+// Handle FCM background messages (when app is closed)
+messaging.onBackgroundMessage((payload) => {
+  console.log('[Service Worker] Background message received:', payload);
   
-  let data = {
-    title: 'Date Time',
-    body: 'You have a new notification',
-    icon: '/icon.jpg',
+  const notificationTitle = payload.notification?.title || 'Date Time';
+  const notificationOptions = {
+    body: payload.notification?.body || 'You have a new notification',
+    icon: payload.notification?.icon || '/icon.jpg',
     badge: '/icon.jpg',
-    tag: 'date-time-notification'
-  };
-  
-  if (event.data) {
-    try {
-      data = event.data.json();
-    } catch (e) {
-      data.body = event.data.text();
-    }
-  }
-  
-  const options = {
-    body: data.body,
-    icon: data.icon || '/icon.jpg',
-    badge: data.badge || '/icon.jpg',
-    tag: data.tag || 'date-time-notification',
+    tag: payload.data?.timestamp || Date.now().toString(),
+    data: payload.data,
     requireInteraction: false,
-    vibrate: [200, 100, 200],
-    data: {
-      dateOfArrival: Date.now(),
-      primaryKey: 1
-    }
+    vibrate: [200, 100, 200]
   };
   
-  event.waitUntil(
-    self.registration.showNotification(data.title, options)
-  );
+  return self.registration.showNotification(notificationTitle, notificationOptions);
 });
 
 // Handle notification click
@@ -116,17 +105,14 @@ self.addEventListener('notificationclick', (event) => {
   console.log('[Service Worker] Notification clicked:', event.notification.tag);
   event.notification.close();
   
-  // Open the app
   event.waitUntil(
     clients.matchAll({ type: 'window', includeUncontrolled: true }).then((clientList) => {
-      // If app is already open, focus it
       for (let i = 0; i < clientList.length; i++) {
         const client = clientList[i];
         if (client.url.includes(self.location.origin) && 'focus' in client) {
           return client.focus();
         }
       }
-      // Otherwise open new window
       if (clients.openWindow) {
         return clients.openWindow('/');
       }
@@ -134,7 +120,7 @@ self.addEventListener('notificationclick', (event) => {
   );
 });
 
-// Listen for messages from the app (for triggering notifications)
+// Listen for messages from the app
 self.addEventListener('message', (event) => {
   console.log('[Service Worker] Message received:', event.data);
   
@@ -145,7 +131,7 @@ self.addEventListener('message', (event) => {
       body: body,
       icon: icon || '/icon.jpg',
       badge: '/icon.jpg',
-      tag: tag || 'date-time-notification',
+      tag: tag || Date.now().toString(),
       requireInteraction: false,
       vibrate: [200, 100, 200]
     };

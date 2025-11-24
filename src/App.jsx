@@ -5,6 +5,7 @@ import { db, storage } from './firebase';
 import { Camera, Heart, MessageCircle, Calendar, Star, Send, X, Plus, ChevronLeft, ChevronRight, Image as ImageIcon, Sparkles, Clock, TrendingUp, Mic, MicOff, Play, Pause, Lightbulb, Check, Trash2, LogOut, Download, Edit2, Save, Shuffle, MapPin, ThumbsUp, ThumbsDown, Utensils, Coffee, Film, Music } from 'lucide-react';
 import heic2any from 'heic2any';
 import './App.css'; // Add this line
+import { requestFCMToken, setupForegroundMessageHandler } from './firebase';
 
 const SIMRAN = 'simran';
 const AYAAN = 'ayaan';
@@ -1814,7 +1815,18 @@ const nextDate = dates
       setNotificationPermission(permission);
       
       if (permission === 'granted') {
-        showSuccess('Notifications enabled! You\'ll get alerts for new comments, voice notes, and upcoming dates.');
+        // Request FCM token
+        const token = await requestFCMToken(currentUser);
+        if (token) {
+          showSuccess('Push notifications enabled! You\'ll get alerts even when the app is closed.');
+          
+          // Setup handler for messages when app is open
+          setupForegroundMessageHandler((payload) => {
+            console.log('Received foreground message:', payload);
+          });
+        } else {
+          showSuccess('Notifications enabled, but push may not work when app is closed.');
+        }
       }
     }
   };
@@ -2469,7 +2481,7 @@ const nextDate = dates
                 </div>
 
                 {date.location && (
-                  <p className="text-sm text-gray-700 mb-2">ðŸ“ {date.location}</p>
+                  <p className="text-sm text-gray-700 mb-2">📍 {date.location}</p>
                 )}
 
                 {date.rating > 0 && (
