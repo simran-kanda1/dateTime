@@ -931,20 +931,6 @@ const [showPrinciples, setShowPrinciples] = useState(false);
 const [notificationPermission, setNotificationPermission] = useState('default');
 const [serviceWorkerRegistration, setServiceWorkerRegistration] = useState(null);
 
-// Register service worker for background notifications
-useEffect(() => {
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('/service-worker.js')
-      .then((registration) => {
-        console.log('Service Worker registered successfully:', registration);
-        setServiceWorkerRegistration(registration);
-      })
-      .catch((error) => {
-        console.log('Service Worker registration failed:', error);
-      });
-  }
-}, []);
-
 // Load achieved milestones from Firebase
 useEffect(() => {
   const q = query(collection(db, 'milestones'), orderBy('achievedAt', 'desc'));

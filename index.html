@@ -27,12 +27,19 @@
     <script type="module" src="/src/main.jsx"></script>
     
     <!-- Service Worker Registration -->
+
     <script>
       if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
+          // Register main service worker
           navigator.serviceWorker.register('/service-worker.js')
-            .then(reg => console.log('✅ SW registered'))
-            .catch(err => console.log('❌ SW failed:', err));
+            .then(reg => console.log('✅ Service Worker registered:', reg))
+            .catch(err => console.error('❌ SW registration failed:', err));
+          
+          // Register FCM service worker
+          navigator.serviceWorker.register('/firebase-messaging-sw.js')
+            .then(reg => console.log('✅ FCM Service Worker registered:', reg))
+            .catch(err => console.error('❌ FCM SW registration failed:', err));
         });
       }
     </script>
